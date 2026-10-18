@@ -160,6 +160,32 @@ public sealed class JfctlGatewayController : IGatewayController
     public Task<string> ReadLogsAsync()
     {
         var sb = new StringBuilder();
+        sb.AppendLine("刷新于 " + DateTime.Now.ToString("HH:mm:ss") + "（每 5 秒自动刷新）");
+        sb.AppendLine();
+        var gatewayLog = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Temp", "openclaw", "openclaw-" + DateTime.Now.ToString("yyyy-MM-dd") + ".log");
+        sb.AppendLine("=== 网关日志尾部 " + gatewayLog + " ===");
+        try
+        {
+            if (File.Exists(gatewayLog))
+            {
+                var gl = File.ReadAllLines(gatewayLog);
+                foreach (var line in gl.Skip(Math.Max(0, gl.Length - 40)))
+                {
+                    string text = line;
+                    try
+                    {
+                        using var doc = JsonDocument.Parse(line);
+                        text = (doc.RootElement.TryGetProperty("time", out var t) ? t.GetString() : "") + "  " +
+                               (doc.RootElement.TryGetProperty("message", out var m) ? m.GetString() : line);
+                    }
+                    catch { }
+                    sb.AppendLine(text);
+                }
+            }
+            else sb.AppendLine("(当日日志不存在)");
+        }
+        catch (Exception ex) { sb.AppendLine("(读取失败: " + ex.Message + ")"); }
+        sb.AppendLine();
         foreach (var f in new[] { Path.Combine(_shellDir, "logs", "supervisor.jsonl"), Path.Combine(_shellDir, "logs", "soak.log") })
         {
             sb.AppendLine("=== " + f + " ===");

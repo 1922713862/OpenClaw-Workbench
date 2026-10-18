@@ -8,9 +8,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>jf.ico</ApplicationIcon>
     <AssemblyName>JFWorkbench</AssemblyName>
-    <Product>OpenClaw Workbench</Product>
-    <Version>0.5.5</Version>
-    <FileVersion>0.5.5.0</FileVersion>
+    <Product>JFlash 工作台</Product>
+    <Version>0.5.6</Version>
+    <FileVersion>0.5.6.0</FileVersion>
     <PlatformTarget>x64</PlatformTarget>
     <NuGetAudit>false</NuGetAudit>
     <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>

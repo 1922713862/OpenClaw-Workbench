@@ -67,6 +67,7 @@ public partial class MainForm : Form
     private readonly ToolStripStatusLabel stripState = new("网关：检测中…");
     private readonly ToolStripStatusLabel stripEndpoint = new() { Spring = true, TextAlign = ContentAlignment.MiddleRight };
     private readonly System.Windows.Forms.Timer rpcTimer = new() { Interval = 60000 };
+    private readonly System.Windows.Forms.Timer logsTimer = new() { Interval = 5000 };
     private WebView2? web;
     private NotifyIcon? tray;
     private ToolStripMenuItem? trayState;
@@ -151,6 +152,8 @@ public partial class MainForm : Form
         SelectPage("workbench");
         SetControlEnabled();
         rpcTimer.Tick += async (_, _) => await RefreshStatusAsync(true);
+        logsTimer.Tick += async (_, _) => { if (!demo && drawerPage == "logs") await RefreshLogsAsync(); };
+        logsTimer.Start();
         Load += async (_, _) => await EnsureInitializedAsync();
         SystemEvents.PowerModeChanged += OnPowerModeChanged;
         FormClosing += OnClosing;
