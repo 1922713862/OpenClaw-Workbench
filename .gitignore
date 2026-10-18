@@ -1,0 +1,16 @@
+bin/
+obj/
+out/
+*.user
+*.suo
+.vs/
+*.log
+logs/
+webview-data/
+control/
+shell.json
+data/
+demo-data/
+p1-data/
+*.png
+!docs/*.png
