@@ -1,4 +1,4 @@
-# JFlash Workbench
+# OpenClaw Workbench
 
 A small Windows desktop shell that gives [OpenClaw](https://openclaw.ai) a real window, an explicit
 gateway lifecycle, and a single source of truth for "should the gateway be running?".
@@ -50,7 +50,7 @@ dotnet publish .\src\JFWorkbench.csproj -c Release -o .\out
    `%USERPROFILE%\.openclaw\jf-shell\` (the shell's working directory — that is what makes the shim local
    to the shell instead of hijacking your global PATH).
 3. Register two per-user scheduled tasks, both passive (no failure-restart, ignore-new):
-   - `JFlash Workbench Gateway` — at logon, runs `jf-ensure.vbs`
+   - `OpenClaw Workbench Gateway` — at logon, runs `jf-ensure.vbs`
    - `JFlash Shell Guard` — every 2 minutes, runs `jf-guard.vbs`
 4. Point a desktop shortcut at the published `JFWorkbench.exe`.
 
